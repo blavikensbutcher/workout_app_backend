@@ -1,7 +1,9 @@
 import { InputType, Field, GraphQLISODateTime } from '@nestjs/graphql';
+import { IsEmail } from 'class-validator';
 
 @InputType({ description: 'Create user schema' })
 export class CreateUserInput {
+  @IsEmail()
   email: string;
 
   @Field(() => String, { nullable: true })

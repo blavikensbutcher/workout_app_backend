@@ -22,7 +22,7 @@ export class UsersService {
     return this.userRepository.find();
   }
 
-  async findOne(id: string) {
+  async findUserById(id: string) {
     const user = await this.userRepository.findOne({ where: { id } });
 
     if (!user) throw new UserInputError(`User not found`);
@@ -30,11 +30,24 @@ export class UsersService {
     return user;
   }
 
-  update(id: string, updateUserInput: UpdateUserInput) {
-    return `This action updates a #${id} user`;
+  async update(id: string, updateUserInput: UpdateUserInput) {
+    const user = await this.userRepository.preload({
+      id,
+      ...updateUserInput,
+    });
+
+    if (!user) throw new UserInputError('User doesnt exists');
+
+    return this.userRepository.save(user);
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} user`;
+  async remove(id: string) {
+    const user = await this.userRepository.findOne({ where: { id } });
+
+    if (!user) throw new UserInputError('User doesnt exists');
+
+    await this.userRepository.delete(user);
+
+    return user;
   }
 }

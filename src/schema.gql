@@ -37,7 +37,7 @@ type Query {
 
 type Mutation {
   createUser(createUserInput: CreateUserInput!): User!
-  updateUser(updateUserInput: UpdateUserInput!): User!
+  updateUser(id: String!, updateUserInput: UpdateUserInput!): User!
   removeUser(id: ID!): User!
   createExercise(createExerciseInput: CreateExerciseInput!): Exercise!
   updateExercise(updateExerciseInput: UpdateExerciseInput!): Exercise!
@@ -69,7 +69,6 @@ input UpdateUserInput {
   updatedAt: DateTime
   email: String
   password: String
-  id: ID!
 }
 
 input CreateExerciseInput {
