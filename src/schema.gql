@@ -1,0 +1,84 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""User model"""
+type User {
+  """Unique id"""
+  id: ID!
+  firstName: String
+  lastName: String
+  avatar: String
+  isVerified: Boolean!
+  accessToken: String
+  refreshToken: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  email: String!
+  password: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Exercise {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type Query {
+  users: [User!]!
+  user(id: ID!): User!
+  exercises: [Exercise!]!
+  exercise(id: Int!): Exercise!
+}
+
+type Mutation {
+  createUser(createUserInput: CreateUserInput!): User!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  removeUser(id: ID!): User!
+  createExercise(createExerciseInput: CreateExerciseInput!): Exercise!
+  updateExercise(updateExerciseInput: UpdateExerciseInput!): Exercise!
+  removeExercise(id: Int!): Exercise!
+}
+
+"""Create user schema"""
+input CreateUserInput {
+  firstName: String
+  lastName: String
+  avatar: String
+  isVerified: Boolean
+  accessToken: String
+  refreshToken: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  email: String!
+  password: String!
+}
+
+input UpdateUserInput {
+  firstName: String
+  lastName: String
+  avatar: String
+  isVerified: Boolean
+  accessToken: String
+  refreshToken: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  email: String
+  password: String
+  id: ID!
+}
+
+input CreateExerciseInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateExerciseInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
