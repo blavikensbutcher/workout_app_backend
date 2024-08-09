@@ -1,22 +1,22 @@
 import { Injectable } from '@nestjs/common';
-import { CreateExerciseInput } from './dto/create-exercise.input';
-import { UpdateExerciseInput } from './dto/update-exercise.input';
+import { CreateExerciseDto } from './dto/create-exercise.dto';
+import { UpdateExerciseDto } from './dto/update-exercise.dto';
 
 @Injectable()
-export class ExercisesService {
-  create(createExerciseInput: CreateExerciseInput) {
+export class ExerciseService {
+  create(createExerciseDto: CreateExerciseDto) {
     return 'This action adds a new exercise';
   }
 
   findAll() {
-    return `This action returns all exercises`;
+    return `This action returns all exercise`;
   }
 
   findOne(id: number) {
     return `This action returns a #${id} exercise`;
   }
 
-  update(id: number, updateExerciseInput: UpdateExerciseInput) {
+  update(id: number, updateExerciseDto: UpdateExerciseDto) {
     return `This action updates a #${id} exercise`;
   }
 

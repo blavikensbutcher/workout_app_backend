@@ -1,0 +1,88 @@
+datasource db {
+  url      = env("DATABASE_URL")
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id String @id @default(uuid())
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+
+  email     String @unique
+  password  String
+  avatarUrl String
+
+  fullName String?
+
+  accessToken  String? @default("") @map("access_token")
+  refreshToken String? @default("") @map("refresh_token")
+
+  isVerified Boolean @default(false)
+
+  userParams User_Params?
+  Exercise  Exercise[]
+
+  @@map("user")
+
+}
+
+model User_Params {
+  id String @id @default(uuid())
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+
+  weight          Int[]
+  height          Int[]
+  age             Int
+  chest_girth_cm  Int[]
+  biceps_girth_cm Int[]
+  hip_girth_cm    Int[]
+  leg_girth_cm    Int[]
+
+  user   User?  @relation(fields: [userId], references: [id])
+  userId String @unique @map("user_id")
+
+  @@map("user_params")
+}
+
+model Exercise {
+  id String @id @default(uuid())
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+
+  name                   String
+  totalRepsForTheMonth   Int[]
+  totalWeightForTheMonth Int[]
+  isWithWeight           Boolean
+  lastTrainingSession    DateTime
+
+  exerciseList ExerciseList[]
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @map("user_id")
+
+  @@map("exercise")
+}
+
+model ExerciseList {
+  id String @id @default(uuid())
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+
+  reps       Int? @default(0)
+  weight     Int? @default(0)
+  timeInSecs Int? @default(0)
+
+  exercise   Exercise @relation(fields: [exerciseId], references: [id])
+  exerciseId String   @map("exercise_id")
+
+  @@map("exercise_list")
+}
