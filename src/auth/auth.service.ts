@@ -1,26 +1,27 @@
-import { Injectable } from '@nestjs/common';
-import { CreateAuthDto } from './dto/create-auth.dto';
-import { UpdateAuthDto } from './dto/update-auth.dto';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { AuthDto } from './dto/auth.dto';
+import { UserService } from 'src/user/user.service';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class AuthService {
-  create(createAuthDto: CreateAuthDto) {
-    return 'This action adds a new auth';
+  constructor(
+    private readonly userService: UserService,
+    private readonly jwtService: JwtService,
+  ) {}
+
+  login(dto: AuthDto) {
+    // const user = this.authService.validateUser();
   }
 
-  findAll() {
-    return `This action returns all auth`;
-  }
+  async validateUser(dto: AuthDto) {
+    const user = await this.userService.findUserByEmail(dto.email);
 
-  findOne(id: number) {
-    return `This action returns a #${id} auth`;
-  }
+    if (!user) throw new NotFoundException("Email didn't exists");
 
-  update(id: number, updateAuthDto: UpdateAuthDto) {
-    return `This action updates a #${id} auth`;
-  }
+    const isValid = bcrypt.compare(dto.password, user.password);
 
-  remove(id: number) {
-    return `This action removes a #${id} auth`;
+    return null;
   }
 }

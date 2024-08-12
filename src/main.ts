@@ -13,6 +13,8 @@ async function bootstrap() {
     exposedHeaders: ['set-cookie'],
   });
 
+  app.setGlobalPrefix('/api')
+
   const config = new DocumentBuilder()
     .setTitle('Workout app 💪🏼')
     .setDescription('Workout app schema')
@@ -21,6 +23,7 @@ async function bootstrap() {
     .setVersion('0.1')
     .build();
   const document = SwaggerModule.createDocument(app, config);
+
   SwaggerModule.setup('docs', app, document);
 
   await app.listen(process.env.PORT || 4000);

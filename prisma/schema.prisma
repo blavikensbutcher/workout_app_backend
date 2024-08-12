@@ -15,7 +15,7 @@ model User {
 
   email     String @unique
   password  String
-  avatarUrl String
+  avatarUrl String?
 
   fullName String?
 
@@ -65,7 +65,7 @@ model Exercise {
 
   exerciseList ExerciseList[]
 
-  user   User   @relation(fields: [userId], references: [id])
+  user   User?   @relation(fields: [userId], references: [id])
   userId String @map("user_id")
 
   @@map("exercise")
@@ -81,7 +81,7 @@ model ExerciseList {
   weight     Int? @default(0)
   timeInSecs Int? @default(0)
 
-  exercise   Exercise @relation(fields: [exerciseId], references: [id])
+  exercise   Exercise? @relation(fields: [exerciseId], references: [id])
   exerciseId String   @map("exercise_id")
 
   @@map("exercise_list")
