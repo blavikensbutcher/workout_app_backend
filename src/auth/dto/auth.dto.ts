@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, Min } from 'class-validator';
+import { IsEmail, MinLength } from 'class-validator';
 
 export class AuthDto {
   @IsEmail()
@@ -7,6 +7,6 @@ export class AuthDto {
   email: string;
 
   @ApiProperty()
-  @Min(6, { message: 'Password must be more than 6 symbols' })
+  @MinLength(5, { message: 'Password must be more than 5 symbols' })
   password: string;
 }

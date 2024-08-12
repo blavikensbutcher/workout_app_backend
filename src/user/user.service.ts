@@ -1,20 +1,28 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma.service';
-import { Prisma as prismaType, User } from '@prisma/client';
+import { User } from '@prisma/client';
+import { UpdateUserDto } from './dto/update-user.dto';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class UserService {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(createUserDto: CreateUserDto) {
+  async createUser(createUserDto: CreateUserDto): Promise<User> {
+    const salt = await bcrypt.genSalt();
+    const user = {
+      name: createUserDto.fullName,
+      email: createUserDto.email,
+      password: await bcrypt.hash(createUserDto.password, salt),
+    };
+
     return this.prisma.user.create({
-      data: createUserDto,
+      data: user,
     });
   }
 
-  findAllUsers() {
+  async findAllUsers(): Promise<User[]> {
     return this.prisma.user.findMany();
   }
 
@@ -34,11 +42,12 @@ export class UserService {
     });
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async updateUserById(id: string, dto: UpdateUserDto) {
+    return this.prisma.user.update({
+      where: {
+        id,
+      },
+      data: dto,
+    });
   }
 }

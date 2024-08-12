@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as process from 'process';
 import { ValidationPipe } from '@nestjs/common';
+import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: false });
@@ -13,7 +14,8 @@ async function bootstrap() {
     exposedHeaders: ['set-cookie'],
   });
 
-  app.setGlobalPrefix('/api')
+  app.setGlobalPrefix('/api');
+  app.use(cookieParser());
 
   const config = new DocumentBuilder()
     .setTitle('Workout app 💪🏼')

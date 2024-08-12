@@ -6,35 +6,35 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
   @IsEmail()
   @IsOptional()
   @ApiProperty()
-  email: string;
+  email?: string;
 
   @IsString()
   @IsOptional()
   @ApiProperty()
-  password: string;
+  password?: string;
 
   @IsString()
   @IsOptional()
   @ApiProperty()
-  avatarUrl: string;
+  avatarUrl?: string;
 
   @IsString()
   @IsOptional()
   @ApiProperty()
-  fullName: string;
+  fullName?: string;
 
   @IsString()
   @IsOptional()
   @ApiProperty()
-  accessToken: string;
+  accessToken?: string;
 
   @IsString()
   @IsOptional()
   @ApiProperty()
-  refreshToken: string;
+  refreshToken?: string;
 
   @IsString()
   @IsOptional()
   @ApiProperty()
-  isVerified: boolean;
+  isVerified?: boolean;
 }

@@ -9,10 +9,10 @@ export class CreateUserDto {
 
   @IsString()
   @ApiProperty()
-  fullName: string;
+  fullName?: string;
 
   @IsString()
-  @MinLength(6, { message: 'Password must be longer than 6 symbols' })
+  @MinLength(5, { message: 'Password must be longer than 5 symbols' })
   @ApiProperty()
   password: string;
 }
