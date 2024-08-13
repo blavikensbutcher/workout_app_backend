@@ -11,6 +11,7 @@ import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { Auth } from 'decorators/auth.decorator';
 
 @ApiTags('User')
 @Controller('users')
@@ -22,23 +23,30 @@ export class UserController {
     return this.userService.createUser(createUserDto);
   }
 
+  @Auth()
   @Get()
   findAll() {
     return this.userService.findAllUsers();
   }
 
-  @Get(':userId')
+  @Auth()
+  @Get('u/:userId')
   findUserById(@Param('userId') userId: string) {
     return this.userService.findUserById(userId);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.updateUserById(id, updateUserDto);
+  @Auth()
+  @Patch('u/:userId')
+  update(
+    @Param('userId') userId: string,
+    @Body() updateUserDto: UpdateUserDto,
+  ) {
+    return this.userService.updateUserById(userId, updateUserDto);
   }
 
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.userService.remove(+id);
-  // }
+  @Auth()
+  @Delete('u/:userId')
+  remove(@Param('id') id: string) {
+    return this.userService.deleteUser(id);
+  }
 }

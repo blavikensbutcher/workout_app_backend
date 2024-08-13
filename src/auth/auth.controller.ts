@@ -24,7 +24,11 @@ export class AuthController {
   @HttpCode(200)
   @Post('login')
   async login(@Body() dto: AuthDto, @Res({ passthrough: true }) res: Response) {
-    const response = await this.authService.login(dto);
+    const { refreshToken, ...response } = await this.authService.login(dto);
+
+    if (refreshToken) {
+      this.authService.addRefreshToken(res, refreshToken);
+    }
 
     return response;
   }

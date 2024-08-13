@@ -42,12 +42,20 @@ export class UserService {
     });
   }
 
-  async updateUserById(id: string, dto: UpdateUserDto) {
+  async updateUserById(userId: string, dto: UpdateUserDto) {
     return this.prisma.user.update({
       where: {
-        id,
+        id: userId,
       },
       data: dto,
+    });
+  }
+
+  async deleteUser(userId: string) {
+    return this.prisma.user.delete({
+      where: {
+        id: userId,
+      },
     });
   }
 }

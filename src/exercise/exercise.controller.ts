@@ -1,34 +1,32 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { ExerciseService } from './exercise.service';
 import { CreateExerciseDto } from './dto/create-exercise.dto';
-import { UpdateExerciseDto } from './dto/update-exercise.dto';
+import { ApiTags } from '@nestjs/swagger';
+import { CurrentUser } from 'decorators/user.decorator';
+import { Auth } from 'decorators/auth.decorator';
 
 @Controller('exercise')
+@ApiTags('Exercise')
 export class ExerciseController {
   constructor(private readonly exerciseService: ExerciseService) {}
 
+  @Auth()
   @Post()
-  create(@Body() createExerciseDto: CreateExerciseDto) {
-    return this.exerciseService.create(createExerciseDto);
+  create(@Body() dto: CreateExerciseDto, @CurrentUser('id') userId: string) {
+    return this.exerciseService.createExercise(dto, userId);
   }
 
+  @Auth()
   @Get()
-  findAll() {
-    return this.exerciseService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.exerciseService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateExerciseDto: UpdateExerciseDto) {
-    return this.exerciseService.update(+id, updateExerciseDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.exerciseService.remove(+id);
+  findAll(@CurrentUser('id') userId: string) {
+    return this.exerciseService.findAllExercisesByUserId(userId);
   }
 }
