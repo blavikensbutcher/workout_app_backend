@@ -13,7 +13,6 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
   @ApiProperty()
   password?: string;
 
-  @IsString()
   @IsOptional()
   @ApiProperty()
   avatarUrl?: string;
@@ -25,15 +24,12 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
 
   @IsString()
   @IsOptional()
-  @ApiProperty()
   accessToken?: string;
 
   @IsString()
   @IsOptional()
-  @ApiProperty()
   refreshToken?: string;
 
-  @IsString()
   @IsOptional()
   @ApiProperty()
   isVerified?: boolean;

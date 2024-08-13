@@ -6,7 +6,7 @@ export class UpdateExerciseDto extends PartialType(CreateExerciseDto) {
   @ApiProperty()
   @IsString()
   @IsOptional()
-  exercise_name?: string | undefined;
+  name?: string;
 
   @IsNumber()
   @IsOptional()
@@ -24,7 +24,7 @@ export class UpdateExerciseDto extends PartialType(CreateExerciseDto) {
   @IsString()
   @IsOptional()
   @ApiProperty()
-  img?: string | undefined;
+  img?: string;
 
   @IsBoolean()
   @IsOptional()
