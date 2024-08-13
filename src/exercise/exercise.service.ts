@@ -7,9 +7,6 @@ import { CreateExerciseDto } from './dto/create-exercise.dto';
 import { UpdateExerciseDto } from './dto/update-exercise.dto';
 import { PrismaService } from 'src/prisma.service';
 import { Exercise } from '@prisma/client';
-import { response } from 'express';
-import { STATUS_CODES } from 'http';
-import { ExceptionsHandler } from '@nestjs/core/exceptions/exceptions-handler';
 
 @Injectable()
 export class ExerciseService {
