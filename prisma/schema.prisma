@@ -62,6 +62,8 @@ model Exercise {
   isWithWeight           Boolean
   lastTrainingSession    DateTime?
 
+  img String?
+
   exerciseList ExerciseListItem[]
 
   user   User?  @relation(fields: [userId], references: [id])

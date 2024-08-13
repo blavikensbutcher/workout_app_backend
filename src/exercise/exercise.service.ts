@@ -20,7 +20,7 @@ export class ExerciseService {
     });
   }
 
-  findAllExercisesByUserId(userId: string) {
+  async findAllUsersExercises(userId: string): Promise<Exercise[]> {
     return this.prisma.exercise.findMany({
       where: {
         userId,
@@ -28,15 +28,38 @@ export class ExerciseService {
     });
   }
 
-  // findOne(id: number) {
-  //   return `This action returns a #${id} exercise`;
-  // }
+  async findOneExerciseById(
+    id: string,
+    userId: string,
+  ): Promise<Exercise | null> {
+    return this.prisma.exercise.findUnique({
+      where: {
+        userId,
+        id,
+      },
+    });
+  }
 
-  // update(id: number, updateExerciseDto: UpdateExerciseDto) {
-  //   return `This action updates a #${id} exercise`;
-  // }
+  async updateOneExerciseById(
+    id: string,
+    userId: string,
+    updateExerciseDto: UpdateExerciseDto,
+  ): Promise<Exercise> {
+    return this.prisma.exercise.update({
+      where: {
+        id,
+        userId,
+      },
+      data: updateExerciseDto,
+    });
+  }
 
-  // remove(id: number) {
-  //   return `This action removes a #${id} exercise`;
-  // }
+  async deleteExercise(id: string, userId: string) {
+    return this.prisma.exercise.delete({
+      where: {
+        id,
+        userId,
+      },
+    });
+  }
 }
