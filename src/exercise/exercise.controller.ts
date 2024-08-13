@@ -50,6 +50,7 @@ export class ExerciseController {
   @Auth()
   @Delete('e/:id')
   deleteExercise(@Param('id') id: string, @CurrentUser('id') userId: string) {
+
     return this.exerciseService.deleteExercise(id, userId);
   }
 }
