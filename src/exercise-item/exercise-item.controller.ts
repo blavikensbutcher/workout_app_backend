@@ -15,14 +15,17 @@ import { UpdateExerciseItemDto } from './dto/update-exercise-item.dto';
 export class ExerciseItemController {
   constructor(private readonly exerciseItemService: ExerciseItemService) {}
 
-  @Post()
-  create(@Body() createExerciseItemDto: CreateExerciseItemDto) {
-    return this.exerciseItemService.create(createExerciseItemDto);
+  @Post('u/:exerciseId')
+  createExerciseItem(
+    @Body() dto: CreateExerciseItemDto,
+    @Param('exerciseId') exerciseId: string,
+  ) {
+    return this.exerciseItemService.createExerciseItem(dto, exerciseId);
   }
 
   @Get('u/:exerciseId')
-  findAllExerciseItems(@Param('exerciseId') execiseId: string) {
-    return this.exerciseItemService.findAllExerciseItems(execiseId);
+  findAllExerciseItems(@Param('exerciseId') exerciseId: string) {
+    return this.exerciseItemService.findAllExerciseItems(exerciseId);
   }
 
   // @Get(':id')
@@ -35,8 +38,8 @@ export class ExerciseItemController {
   //   return this.exerciseItemService.update(+id, updateExerciseItemDto);
   // }
 
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.exerciseItemService.remove(+id);
-  // }
+  @Delete('delete/:exerciseItemId')
+  deleteExerciseItem(@Param('exerciseItemId') exerciseItemId: string) {
+    return this.exerciseItemService.deleteExerciseItem(exerciseItemId);
+  }
 }

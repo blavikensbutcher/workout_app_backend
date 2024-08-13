@@ -8,16 +8,27 @@ import { PrismaService } from 'src/prisma.service';
 export class ExerciseItemService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(createExerciseItemDto: CreateExerciseItemDto) {
-    return 'This action adds a new exerciseItem';
+  async createExerciseItem(dto: CreateExerciseItemDto, exerciseId: string) {
+    return this.prisma.exerciseListItem.create({
+      data: {
+        ...dto,
+        exercise: {
+          connect: {
+            id: exerciseId,
+          },
+        },
+      },
+    });
   }
 
   async findAllExerciseItems(exerciseId: string) {
-    return this.prisma.exerciseListItem.findMany({
+    const exercise = await this.prisma.exerciseListItem.findMany({
       where: {
         exerciseId,
       },
     });
+
+    return exercise;
   }
 
   // findOne(id: number) {
@@ -28,7 +39,11 @@ export class ExerciseItemService {
   //   return `This action updates a #${id} exerciseItem`;
   // }
 
-  // remove(id: number) {
-  //   return `This action removes a #${id} exerciseItem`;
-  // }
+  async deleteExerciseItem(exerciseItemId: string) {
+    return this.prisma.exerciseListItem.delete({
+      where: {
+        id: exerciseItemId,
+      },
+    });
+  }
 }

@@ -9,11 +9,11 @@ export class UpdateExerciseItemDto extends PartialType(CreateExerciseItemDto) {
   updatedAt?: Date;
 
   @IsOptional()
-  reps?: number | undefined;
+  reps?: number;
 
   @IsOptional()
-  weight?: number | undefined;
+  weight?: number;
 
   @IsOptional()
-  timeInSecs?: number | undefined;
+  timeInSecs?: number;
 }

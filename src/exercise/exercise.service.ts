@@ -7,6 +7,7 @@ import { CreateExerciseDto } from './dto/create-exercise.dto';
 import { UpdateExerciseDto } from './dto/update-exercise.dto';
 import { PrismaService } from 'src/prisma.service';
 import { Exercise } from '@prisma/client';
+import { ExerciseItem } from 'src/exercise-item/entities/exercise-item.entity';
 
 @Injectable()
 export class ExerciseService {
@@ -39,6 +40,7 @@ export class ExerciseService {
           userId,
           id,
         },
+        include: { exerciseList: true },
       });
 
       if (!exercise) throw new NotFoundException('Exerise doesn`t exists');
