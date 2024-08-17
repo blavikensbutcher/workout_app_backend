@@ -45,7 +45,7 @@ export class UserController {
   }
 
   @Auth()
-  @Delete('u/:userId')
+  @Delete('delete/:userId')
   remove(@Param('id') id: string) {
     return this.userService.deleteUser(id);
   }

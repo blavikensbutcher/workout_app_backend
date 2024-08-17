@@ -14,7 +14,7 @@ import { CurrentUser } from 'decorators/user.decorator';
 import { Auth } from 'decorators/auth.decorator';
 import { UpdateExerciseDto } from './dto/update-exercise.dto';
 
-@Controller('exercise')
+@Controller('users/exercise')
 @ApiTags('Exercise')
 export class ExerciseController {
   constructor(private readonly exerciseService: ExerciseService) {}
@@ -48,7 +48,7 @@ export class ExerciseController {
   }
 
   @Auth()
-  @Delete('e/:id')
+  @Delete('delete/:id')
   deleteExercise(@Param('id') id: string, @CurrentUser('id') userId: string) {
     return this.exerciseService.deleteExercise(id, userId);
   }
